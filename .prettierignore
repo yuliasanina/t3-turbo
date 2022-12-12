@@ -1,0 +1,5 @@
+/dist
+/coverage
+build
+__tests__
+.next

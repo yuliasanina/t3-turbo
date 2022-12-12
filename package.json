@@ -1,0 +1,28 @@
+{
+  "name": "dominik-t3-turbo",
+  "private": true,
+  "packageManager": "pnpm@7.13.0",
+  "scripts": {
+    "db-generate": "turbo db-generate",
+    "db-push": "turbo db-push",
+    "build": "turbo build",
+    "test": "turbo test",
+    "postinstall": "turbo db-generate && turbo db-push",
+    "dev": "turbo dev --parallel",
+    "clean:workspaces": "turbo clean",
+    "clean": "rm -rf node_modules",
+    "lint": "turbo lint && manypkg check",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "dependencies": {
+    "@manypkg/cli": "^0.19.2",
+    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
+    "@vitejs/plugin-react": "^2.2.0",
+    "@vue/compiler-sfc": "^3.2.26",
+    "jsdom": "^20.0.3",
+    "prettier": "^2.7.1",
+    "turbo": "^1.6.3",
+    "vite": "^3.2.4",
+    "vitest": "^0.25.3"
+  }
+}
