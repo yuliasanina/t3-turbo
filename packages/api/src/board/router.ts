@@ -9,10 +9,12 @@ export const boardRouter = router({
     const boards = new BoardsService(ctx);
     return boards.getUserBoards(input);
   }),
+
   byId: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
     const board = new BoardsService(ctx);
     return board.getBoardById(input);
   }),
+
   create: protectedProcedure
     .input(
       z.object({
@@ -29,6 +31,7 @@ export const boardRouter = router({
         userId: input.userId,
       });
     }),
+
   update: protectedProcedure
     .input(
       z.object({
@@ -41,6 +44,7 @@ export const boardRouter = router({
       const board = new BoardsService(ctx);
       return board.updateBoard(input);
     }),
+
   delete: protectedProcedure.input(z.number()).mutation(({ ctx, input }) => {
     const board = new BoardsService(ctx);
     return board.deleteBoard(input);

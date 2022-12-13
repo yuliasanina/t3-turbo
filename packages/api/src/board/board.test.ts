@@ -1,4 +1,4 @@
-import { expect, test, beforeEach, afterAll } from 'vitest';
+import { expect, test, beforeEach, afterAll, afterEach } from 'vitest';
 
 import { createContext } from '../context';
 import { USER, FIRST_BOARD, SECOND_BOARD } from '../test.constants';
@@ -41,7 +41,7 @@ beforeEach(async () => {
   });
 });
 
-afterAll(async () => {
+afterEach(async () => {
   await ctx.prisma.board.deleteMany({
     where: { title: { in: [FIRST_BOARD.title, SECOND_BOARD.title] } },
   });
@@ -55,6 +55,7 @@ test('getUserBoards should return one board', async () => {
   const userId = await getUserId();
   const boards = await boardsService.getUserBoards(userId!);
 
+  console.log(boards);
   expect(boards).toHaveLength(1);
   expect(boards[0]).toMatchObject({
     title: FIRST_BOARD.title,
@@ -116,8 +117,8 @@ test('deleteBoard should delete the board', async () => {
     userId: userId,
   });
 
-  const isDeleted = await ctx.prisma.board.findFirst({
+  const deletedBoard = await ctx.prisma.board.findFirst({
     where: { id: boardId },
   });
-  expect(isDeleted).toBeNull();
+  expect(deletedBoard).toBeNull();
 });

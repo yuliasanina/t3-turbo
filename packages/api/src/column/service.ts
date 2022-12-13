@@ -1,21 +1,21 @@
 import { type Context } from '../context';
 
-export class BoardsService {
+export class ColumnsService {
   constructor(private ctx: Context) {}
 
-  public getUserBoards(userId: string) {
-    return this.ctx.prisma.board.findMany({ where: { userId } });
+  public getBoardColumns(boardId: number) {
+    return this.ctx.prisma.column.findMany({ where: { boardId } });
   }
 
-  public getBoardById(id: number) {
-    return this.ctx.prisma.board.findFirst({ where: { id } });
+  public getColumnById(id: number) {
+    return this.ctx.prisma.column.findFirst({ where: { id } });
   }
 
-  public createBoard(data: { title: string; order: number; userId: string }) {
-    return this.ctx.prisma.board.create({ data });
+  public createColumn(data: { title: string; order: number; boardId: number }) {
+    return this.ctx.prisma.column.create({ data });
   }
 
-  public updateBoard({
+  public updateColumn({
     id,
     title,
     order,
@@ -24,13 +24,13 @@ export class BoardsService {
     title?: string;
     order?: number;
   }) {
-    return this.ctx.prisma.board.update({
+    return this.ctx.prisma.column.update({
       where: { id },
       data: { title, order },
     });
   }
 
-  public deleteBoard(id: number) {
-    return this.ctx.prisma.board.delete({ where: { id } });
+  public deleteColumn(id: number) {
+    return this.ctx.prisma.column.delete({ where: { id } });
   }
 }

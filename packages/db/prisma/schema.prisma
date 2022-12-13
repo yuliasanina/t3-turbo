@@ -70,7 +70,7 @@ model VerificationToken {
 
 model Column {
     id                Int  @id @default(autoincrement())
-    name              String
+    title              String
     order             Int
     board             Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
     boardId           Int
@@ -80,7 +80,7 @@ model Column {
 
 model Task {
     id                Int  @id @default(autoincrement())
-    name              String
+    title              String
     order             Int
     description       String
     column            Column @relation(fields: [columnId], references: [id], onDelete: Cascade)

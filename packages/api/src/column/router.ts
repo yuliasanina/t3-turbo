@@ -2,33 +2,36 @@ import { z } from 'zod';
 
 import { protectedProcedure } from '../auth';
 import { router } from '../trpc';
-import { BoardsService } from './service';
+import { ColumnsService } from './service';
 
-export const boardRouter = router({
-  all: protectedProcedure.input(z.string().cuid()).query(({ ctx, input }) => {
-    const boards = new BoardsService(ctx);
-    return boards.getUserBoards(input);
+export const columnRouter = router({
+  all: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
+    const columns = new ColumnsService(ctx);
+    return columns.getBoardColumns(input);
   }),
+
   byId: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
-    const board = new BoardsService(ctx);
-    return board.getBoardById(input);
+    const column = new ColumnsService(ctx);
+    return column.getColumnById(input);
   }),
+
   create: protectedProcedure
     .input(
       z.object({
         title: z.string(),
         order: z.number(),
-        userId: z.string().uuid(),
+        boardId: z.number(),
       })
     )
     .mutation(({ ctx, input }) => {
-      const board = new BoardsService(ctx);
-      return board.createBoard({
+      const column = new ColumnsService(ctx);
+      return column.createColumn({
         title: input.title,
         order: input.order,
-        userId: input.userId,
+        boardId: input.boardId,
       });
     }),
+
   update: protectedProcedure
     .input(
       z.object({
@@ -38,13 +41,14 @@ export const boardRouter = router({
       })
     )
     .mutation(({ ctx, input }) => {
-      const board = new BoardsService(ctx);
-      return board.updateBoard(input);
+      const column = new ColumnsService(ctx);
+      return column.updateColumn(input);
     }),
+
   delete: protectedProcedure.input(z.number()).mutation(({ ctx, input }) => {
-    const board = new BoardsService(ctx);
-    return board.deleteBoard(input);
+    const column = new ColumnsService(ctx);
+    return column.deleteColumn(input);
   }),
 });
 
-export type BoardRouter = typeof boardRouter;
+export type ColumnRouter = typeof columnRouter;
