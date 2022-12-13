@@ -3,7 +3,7 @@ import { test, expect, beforeAll, afterAll } from 'vitest';
 import { Session } from '@test/auth';
 
 import { createContext } from '../context';
-import { USER } from '../test.constants';
+import { USER } from '../utils';
 import { authRouter } from './router';
 
 beforeAll(async () => {

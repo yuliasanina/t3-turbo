@@ -15,18 +15,16 @@ export class ColumnsService {
     return this.ctx.prisma.column.create({ data });
   }
 
-  public updateColumn({
-    id,
-    title,
-    order,
-  }: {
-    id: number;
-    title?: string;
-    order?: number;
-  }) {
+  public updateColumn(
+    id: number,
+    newData: {
+      title?: string;
+      order?: number;
+    }
+  ) {
     return this.ctx.prisma.column.update({
       where: { id },
-      data: { title, order },
+      data: newData,
     });
   }
 

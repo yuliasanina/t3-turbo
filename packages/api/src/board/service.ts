@@ -15,18 +15,16 @@ export class BoardsService {
     return this.ctx.prisma.board.create({ data });
   }
 
-  public updateBoard({
-    id,
-    title,
-    order,
-  }: {
-    id: number;
-    title?: string;
-    order?: number;
-  }) {
+  public updateBoard(
+    id: number,
+    newData: {
+      title?: string;
+      order?: number;
+    }
+  ) {
     return this.ctx.prisma.board.update({
       where: { id },
-      data: { title, order },
+      data: newData,
     });
   }
 

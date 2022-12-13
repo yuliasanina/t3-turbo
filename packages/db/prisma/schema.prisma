@@ -60,8 +60,8 @@ model User {
  
 model VerificationToken {
     identifier String
-    token      String   @unique
-    expires    DateTime
+    token     String   @unique
+    expires   DateTime
 
     @@unique([identifier, token])
 }
@@ -70,7 +70,7 @@ model VerificationToken {
 
 model Column {
     id                Int  @id @default(autoincrement())
-    title              String
+    title             String
     order             Int
     board             Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
     boardId           Int
@@ -82,7 +82,7 @@ model Task {
     id                Int  @id @default(autoincrement())
     title              String
     order             Int
-    description       String
+    description       String?
     column            Column @relation(fields: [columnId], references: [id], onDelete: Cascade)
     columnId          Int
     // comments          Comments[]

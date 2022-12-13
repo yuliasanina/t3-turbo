@@ -36,13 +36,15 @@ export const columnRouter = router({
     .input(
       z.object({
         id: z.number(),
-        title: z.string().optional(),
-        order: z.number().optional(),
+        newData: z.object({
+          title: z.string().optional(),
+          order: z.number().optional(),
+        }),
       })
     )
     .mutation(({ ctx, input }) => {
       const column = new ColumnsService(ctx);
-      return column.updateColumn(input);
+      return column.updateColumn(input.id, input.newData);
     }),
 
   delete: protectedProcedure.input(z.number()).mutation(({ ctx, input }) => {

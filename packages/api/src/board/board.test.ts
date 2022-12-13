@@ -1,36 +1,24 @@
-import { expect, test, beforeEach, afterAll, afterEach } from 'vitest';
+import { expect, test, beforeEach, afterEach } from 'vitest';
 
 import { createContext } from '../context';
-import { USER, FIRST_BOARD, SECOND_BOARD } from '../test.constants';
+import {
+  USER,
+  FIRST_BOARD,
+  SECOND_BOARD,
+  getTestUserId,
+  getTestBoardId,
+} from '../utils';
 import { BoardsService } from './service';
 
 const ctx = await createContext();
 const boardsService = new BoardsService(ctx);
-
-const getUserId = async () => {
-  return (
-    await ctx.prisma.user.findFirst({
-      where: { name: USER.name },
-      select: { id: true },
-    })
-  )?.id;
-};
-
-const getBoardById = async () => {
-  return (
-    await ctx.prisma.board.findFirst({
-      where: { title: FIRST_BOARD.title },
-      select: { id: true },
-    })
-  )?.id;
-};
 
 beforeEach(async () => {
   await ctx.prisma.user.create({
     data: { name: USER.name },
   });
 
-  const userId = await getUserId();
+  const userId = await getTestUserId(ctx, USER.name);
 
   await ctx.prisma.board.create({
     data: {
@@ -52,10 +40,9 @@ afterEach(async () => {
 });
 
 test('getUserBoards should return one board', async () => {
-  const userId = await getUserId();
+  const userId = await getTestUserId(ctx, USER.name);
   const boards = await boardsService.getUserBoards(userId!);
 
-  console.log(boards);
   expect(boards).toHaveLength(1);
   expect(boards[0]).toMatchObject({
     title: FIRST_BOARD.title,
@@ -65,8 +52,8 @@ test('getUserBoards should return one board', async () => {
 });
 
 test('getBoardById should return board', async () => {
-  const userId = await getUserId();
-  const boardId = await getBoardById();
+  const userId = await getTestUserId(ctx, USER.name);
+  const boardId = await getTestBoardId(ctx, FIRST_BOARD.title);
 
   const board = await boardsService.getBoardById(boardId!);
   expect(board).toMatchObject({
@@ -77,7 +64,7 @@ test('getBoardById should return board', async () => {
 });
 
 test('createBoard should return new board', async () => {
-  const userId = await getUserId();
+  const userId = await getTestUserId(ctx, USER.name);
 
   const board = await boardsService.createBoard({
     title: SECOND_BOARD.title,
@@ -93,10 +80,9 @@ test('createBoard should return new board', async () => {
 });
 
 test('updateBoard should return updated board', async () => {
-  const boardId = await getBoardById();
+  const boardId = await getTestBoardId(ctx, FIRST_BOARD.title);
 
-  const board = await boardsService.updateBoard({
-    id: boardId!,
+  const board = await boardsService.updateBoard(boardId!, {
     title: SECOND_BOARD.title,
     order: SECOND_BOARD.order,
   });
@@ -107,8 +93,8 @@ test('updateBoard should return updated board', async () => {
 });
 
 test('deleteBoard should delete the board', async () => {
-  const boardId = await getBoardById();
-  const userId = await getUserId();
+  const boardId = await getTestBoardId(ctx, FIRST_BOARD.title);
+  const userId = await getTestUserId(ctx, USER.name);
 
   const board = await boardsService.deleteBoard(boardId!);
   expect(board).toMatchObject({
