@@ -3,16 +3,13 @@ import { test, expect, beforeAll, afterAll } from 'vitest';
 import { Session } from '@test/auth';
 
 import { createContext } from '../context';
+import { USER } from '../test.constants';
 import { authRouter } from './router';
 
 beforeAll(async () => {
   const ctx = await createContext();
-  await ctx.prisma.user.deleteMany();
   await ctx.prisma.user.create({
-    data: {
-      name: 'test',
-      email: 'test@test.com',
-    },
+    data: USER,
   });
 });
 
@@ -35,9 +32,10 @@ const createFakeSession = async (): Promise<Session> => {
 
 afterAll(async () => {
   const ctx = await createContext();
-  await ctx.prisma.user.deleteMany();
+  await ctx.prisma.user.deleteMany({ where: { name: USER.name } });
 });
-test('publicProcedure no user', async () => {
+
+test('should have publicProcedure no user', async () => {
   const ctx = await createContext();
   const caller = authRouter.createCaller(ctx);
   const session = await caller.getSession();
