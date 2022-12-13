@@ -10,6 +10,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+// TODO: remove
 model Post {
     id      String @id @default(cuid())
     title   String
@@ -54,12 +55,54 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    boards        UserBoard[]
 }
-
+ 
 model VerificationToken {
     identifier String
     token      String   @unique
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+
+
+model Column {
+    id                Int  @id @default(autoincrement())
+    name              String
+    order             Int
+    boardId           Int
+    board             Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+    tasks             Task[]
+}
+
+
+model Task {
+    id                Int  @id @default(autoincrement())
+    name              String
+    order             Int
+    description       String
+    columnId          Int
+    column            Column @relation(fields: [columnId], references: [id], onDelete: Cascade)
+    // comments          Comments[]
+}
+
+
+model Board {
+    id                Int  @id @default(autoincrement())
+    name              String
+    order             Int
+    columns           Column[]
+    userBoard         UserBoard[]
+}
+
+
+model UserBoard {
+    id                Int  @id @default(autoincrement())
+    userId            String  
+    boardId           Int  
+    user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    board             Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+    active            Boolean
 }
