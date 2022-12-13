@@ -55,7 +55,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    boards        UserBoard[]
+    boards        Board[]
 }
  
 model VerificationToken {
@@ -72,8 +72,8 @@ model Column {
     id                Int  @id @default(autoincrement())
     name              String
     order             Int
-    boardId           Int
     board             Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+    boardId           Int
     tasks             Task[]
 }
 
@@ -83,26 +83,17 @@ model Task {
     name              String
     order             Int
     description       String
-    columnId          Int
     column            Column @relation(fields: [columnId], references: [id], onDelete: Cascade)
+    columnId          Int
     // comments          Comments[]
 }
 
 
 model Board {
     id                Int  @id @default(autoincrement())
-    name              String
+    title             String
     order             Int
     columns           Column[]
-    userBoard         UserBoard[]
-}
-
-
-model UserBoard {
-    id                Int  @id @default(autoincrement())
+    user              User  @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId            String  
-    boardId           Int  
-    user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    board             Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
-    active            Boolean
 }
