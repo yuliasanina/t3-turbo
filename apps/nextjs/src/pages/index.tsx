@@ -5,20 +5,8 @@ import Head from 'next/head';
 
 import type { AppRouter } from '@test/api';
 
+import { TaskCard } from '@components';
 import { trpc } from '@utils';
-
-const PostCard: React.FC<{
-  post: inferProcedureOutput<AppRouter['post']['all']>[number];
-}> = ({ post }) => {
-  return (
-    <div className="p-4 border-2 border-gray-500 rounded-lg max-w-2xl hover:scale-[101%] transition-all">
-      <h2 className="text-2xl font-bold text-[hsl(280,100%,70%)]">
-        {post.title}
-      </h2>
-      <p>{post.content}</p>
-    </div>
-  );
-};
 
 const Home: NextPage = () => {
   const { data } = trpc.post.all.useQuery();
@@ -40,7 +28,7 @@ const Home: NextPage = () => {
             {data ? (
               <div className="flex flex-col gap-4">
                 {data?.map((p) => {
-                  return <PostCard key={p.id} post={p} />;
+                  return <TaskCard key={p.id} post={p} />;
                 })}
               </div>
             ) : (

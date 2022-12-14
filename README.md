@@ -21,12 +21,14 @@ apps
       ├─ TailwindCSS
       └─ E2E Typesafe API Server & Client
 packages
- ├─ api
- |   └─ tRPC v10 router definition
- ├─ auth
-     └─ authentication using next-auth. **NOTE: Only for Next.js app,
- └─ db
-     └─ typesafe db-calls using Prisma
+  ├─ api
+  |   └─ tRPC v10 router definition
+  ├─ auth
+      └─ authentication using next-auth. **NOTE: Only for Next.js app,
+  ├─ ui-components
+      └─ components. **NOTE: Only for Next.js app,
+  └─ db
+      └─ typesafe db-calls using Prisma
 ```
 
 ## Quick Start

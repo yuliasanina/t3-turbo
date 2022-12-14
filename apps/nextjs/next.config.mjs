@@ -11,7 +11,12 @@ const config = {
   swcMinify: true,
   experimental: {
     // Enables hot-reload and easy integration for local packages
-    transpilePackages: ['@test/api', '@test/auth', '@test/db'],
+    transpilePackages: [
+      '@test/api',
+      '@test/auth',
+      '@test/db',
+      '@test/ui-components',
+    ],
   },
   // We already do linting on GH actions
   eslint: {

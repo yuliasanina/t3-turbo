@@ -6,6 +6,6 @@
   "trailingComma": "es5",
   "printWidth": 80,
   "arrowParens": "always",
-  "importOrder": ["~/", "@test/*", "@utils", "^[./]"],
+  "importOrder": ["~/", "@test/*", "(?:src/(.*)$|@components|@utils)", "^[./]"],
   "importOrderSeparation": true
 }
