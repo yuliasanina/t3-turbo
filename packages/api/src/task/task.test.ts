@@ -116,8 +116,6 @@ test('deleteTask should delete the task', async () => {
   const columnId = await getTestColumnId(ctx, FIRST_COLUMN.title);
   const taskId = await getTestTaskId(ctx, FIRST_TASK.title);
 
-  console.log('deleteTask', taskId);
-
   const task = await taskService.deleteTask(taskId!);
   expect(task).toMatchObject({
     title: FIRST_TASK.title,
