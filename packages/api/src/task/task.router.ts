@@ -2,17 +2,17 @@ import { z } from 'zod';
 
 import { protectedProcedure } from '../auth';
 import { router } from '../trpc';
-import { ColumnsService } from './service';
+import { TaskService } from './task.service';
 
-export const columnRouter = router({
+export const taskRouter = router({
   all: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
-    const columns = new ColumnsService(ctx);
-    return columns.getBoardColumns(input);
+    const tasks = new TaskService(ctx);
+    return tasks.getColumnTasks(input);
   }),
 
   byId: protectedProcedure.input(z.number()).query(({ ctx, input }) => {
-    const column = new ColumnsService(ctx);
-    return column.getColumnById(input);
+    const task = new TaskService(ctx);
+    return task.getTaskById(input);
   }),
 
   create: protectedProcedure
@@ -20,15 +20,17 @@ export const columnRouter = router({
       z.object({
         title: z.string(),
         order: z.number(),
-        boardId: z.number(),
+        columnId: z.number(),
+        description: z.string().optional(),
       })
     )
     .mutation(({ ctx, input }) => {
-      const column = new ColumnsService(ctx);
-      return column.createColumn({
+      const task = new TaskService(ctx);
+      return task.createTask({
         title: input.title,
         order: input.order,
-        boardId: input.boardId,
+        columnId: input.columnId,
+        description: input.description,
       });
     }),
 
@@ -39,18 +41,19 @@ export const columnRouter = router({
         newData: z.object({
           title: z.string().optional(),
           order: z.number().optional(),
+          description: z.string().optional(),
         }),
       })
     )
     .mutation(({ ctx, input }) => {
-      const column = new ColumnsService(ctx);
-      return column.updateColumn(input.id, input.newData);
+      const task = new TaskService(ctx);
+      return task.updateTask(input.id, input.newData);
     }),
 
   delete: protectedProcedure.input(z.number()).mutation(({ ctx, input }) => {
-    const column = new ColumnsService(ctx);
-    return column.deleteColumn(input);
+    const task = new TaskService(ctx);
+    return task.deleteTask(input);
   }),
 });
 
-export type ColumnRouter = typeof columnRouter;
+export type TaskRouter = typeof taskRouter;

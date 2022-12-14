@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { protectedProcedure } from '../auth';
 import { router } from '../trpc';
-import { BoardsService } from './service';
+import { BoardsService } from './board.service';
 
 export const boardRouter = router({
   all: protectedProcedure.input(z.string().cuid()).query(({ ctx, input }) => {

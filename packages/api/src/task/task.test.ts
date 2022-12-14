@@ -17,7 +17,7 @@ import {
   createTestColumn,
   createTestTask,
 } from '../utils';
-import { TaskService } from './service';
+import { TaskService } from './task.service';
 
 const ctx = await createContext();
 const taskService = new TaskService(ctx);

@@ -13,7 +13,7 @@ import {
   createTestBoard,
   createTestColumn,
 } from '../utils';
-import { ColumnsService } from './service';
+import { ColumnsService } from './column.service';
 
 const ctx = await createContext();
 const columnService = new ColumnsService(ctx);

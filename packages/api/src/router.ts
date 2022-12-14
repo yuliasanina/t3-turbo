@@ -1,8 +1,8 @@
 import { authRouter } from './auth/router';
-import { boardRouter } from './board/router';
-import { columnRouter } from './column/router';
+import { boardRouter } from './board/board.router';
+import { columnRouter } from './column/column.router';
 import { postRouter } from './post/router';
-import { taskRouter } from './task/router';
+import { taskRouter } from './task/task.router';
 import { router } from './trpc';
 
 export const appRouter = router({

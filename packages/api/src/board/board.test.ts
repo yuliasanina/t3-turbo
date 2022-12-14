@@ -8,7 +8,7 @@ import {
   getTestUserId,
   getTestBoardId,
 } from '../utils';
-import { BoardsService } from './service';
+import { BoardsService } from './board.service';
 
 const ctx = await createContext();
 const boardsService = new BoardsService(ctx);
