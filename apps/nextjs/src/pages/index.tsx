@@ -4,8 +4,8 @@ import { signIn, signOut } from 'next-auth/react';
 import Head from 'next/head';
 
 import type { AppRouter } from '@test/api';
+import { TaskCard } from '@test/ui-components';
 
-import { TaskCard } from '@components';
 import { trpc } from '@utils';
 
 const Home: NextPage = () => {
