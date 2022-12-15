@@ -7,5 +7,6 @@
   "printWidth": 80,
   "arrowParens": "always",
   "importOrder": ["~/", "@test/*", "(?:src/(.*)$|@components|@utils)", "^[./]"],
-  "importOrderSeparation": true
+  "importOrderSeparation": true,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
