@@ -3,7 +3,8 @@ import { type Context } from '../context';
 export class BoardsService {
   constructor(private ctx: Context) {}
 
-  public getUserBoards(userId: string) {
+  public getUserBoards() {
+    const userId = this.ctx.session?.user.id;
     return this.ctx.prisma.board.findMany({ where: { userId } });
   }
 

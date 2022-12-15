@@ -5,9 +5,9 @@ import { router } from '../trpc';
 import { BoardsService } from './board.service';
 
 export const boardRouter = router({
-  all: protectedProcedure.input(z.string().cuid()).query(({ ctx, input }) => {
+  all: protectedProcedure.query(({ ctx }) => {
     const boards = new BoardsService(ctx);
-    return boards.getUserBoards(input);
+    return boards.getUserBoards();
   }),
 
   byId: protectedProcedure.input(z.number()).query(({ ctx, input }) => {

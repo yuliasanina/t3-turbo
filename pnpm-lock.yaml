@@ -49,6 +49,7 @@ importers:
       eslint-config-next: 13.0.1
       next: 13.0.2
       next-auth: ^4.15.1
+      next-link: ^2.0.0
       postcss: ^8.4.14
       react: 18.2.0
       react-dom: 18.2.0
@@ -69,6 +70,7 @@ importers:
       '@vercel/analytics': 0.1.5_react@18.2.0
       next: 13.0.2_biqbaboplfbrettd7655fr4n2y
       next-auth: 4.17.0_pknogjuzx4bv7zxtatcb2ahtsq
+      next-link: 2.0.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       zod: 3.19.1
@@ -3348,6 +3350,13 @@ packages:
       uuid: 8.3.2
     dev: false
 
+  /next-link/2.0.0:
+    resolution: {integrity: sha512-aXT3ge5A97E+8jkjiWXf5uqw4NfT43vWV8YxoO91z8wURg16dlHOc8CmjHYMftaJDj9jQuJSTbg4TyaeiSBijQ==}
+    deprecated: 'WARNING: This project has been renamed to next-preload-headers. Install using next-preload-headers instead.'
+    dependencies:
+      on-headers: 1.0.2
+    dev: false
+
   /next/13.0.2_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-uQ5z5e4D9mOe8+upy6bQdYYjo/kk1v3jMW87kTy2TgAyAsEO+CkwRnMgyZ4JoHEnhPZLHwh7dk0XymRNLe1gFw==}
     engines: {node: '>=14.6.0'}
@@ -3497,6 +3506,11 @@ packages:
   /oidc-token-hash/5.0.1:
     resolution: {integrity: sha512-EvoOtz6FIEBzE+9q253HsLCVRiK/0doEJ2HCvvqMQb3dHZrP3WlJKYtJ55CRTw4jmYomzH4wkPuCj/I3ZvpKxQ==}
     engines: {node: ^10.13.0 || >=12.0.0}
+    dev: false
+
+  /on-headers/1.0.2:
+    resolution: {integrity: sha512-pZAE+FJLoyITytdqK0U5s+FIpjN0JP3OzFi/u8Rx+EV5/W+JTWGXG8xFzevE7AjBfDqHv/8vL8qQsIhHnqRkrA==}
+    engines: {node: '>= 0.8'}
     dev: false
 
   /once/1.4.0:
