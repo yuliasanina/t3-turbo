@@ -4,3 +4,4 @@ export * from './base-page';
 export * from './arrow-icon';
 export * from './column';
 export * from './base-button';
+export * from './base-popup';
