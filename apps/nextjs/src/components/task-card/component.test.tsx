@@ -6,33 +6,20 @@ import { render, screen } from '@testing-library/react';
 
 import { TaskCard } from './component';
 
-const task: inferProcedureOutput<AppRouter['post']['all']>[number] = {
-  id: '1',
+const task: inferProcedureOutput<AppRouter['task']['all']>[number] = {
+  id: 2,
   title: 'Test title',
-  content: 'test content',
+  description: 'test content',
+  order: 2,
+  columnId: 2,
 };
 
 describe('TaskCard', () => {
   test('renders component', () => {
-    const { baseElement } = render(<TaskCard post={task} />);
+    const { baseElement } = render(<TaskCard task={task} />);
     expect(baseElement).toBeTruthy();
 
     expect(screen.getByText(task.title)).toBeDefined();
-    expect(screen.getByText(task.content)).toBeDefined();
-  });
-
-  test('renders component without description', () => {
-    render(
-      <TaskCard
-        post={{
-          id: '2',
-          title: 'Test title',
-          content: 'test content', // remove it
-        }}
-      />
-    );
-
-    expect(screen.getByText(task.title)).toBeDefined();
-    // expect(screen.getByText(task.content)).not.toBeDefined();
+    expect(screen.getByText('test content')).toBeDefined();
   });
 });

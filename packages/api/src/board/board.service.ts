@@ -5,11 +5,20 @@ export class BoardsService {
 
   public getUserBoards() {
     const userId = this.ctx.session?.user.id;
-    return this.ctx.prisma.board.findMany({ where: { userId } });
+    return this.ctx.prisma.board.findMany({
+      where: { userId },
+    });
   }
 
   public getBoardById(id: number) {
-    return this.ctx.prisma.board.findFirst({ where: { id } });
+    return this.ctx.prisma.board.findFirst({
+      where: { id },
+      include: {
+        columns: {
+          include: { tasks: true },
+        },
+      },
+    });
   }
 
   public createBoard(data: { title: string; order: number; userId: string }) {

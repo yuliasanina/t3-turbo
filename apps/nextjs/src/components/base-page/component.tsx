@@ -2,16 +2,20 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { ArrowIcon } from '@components';
+import { ArrowIcon } from '../arrow-icon';
 
 type Props = {
   title: string;
+  isLoading?: boolean;
   children?: React.ReactNode;
 };
-export const BasePage: React.FC<Props> = ({ title, children }) => {
-  const { pathname } = useRouter();
 
-  console.log('pathname', pathname);
+export const BasePage: React.FC<Props> = ({
+  title,
+  children,
+  isLoading = false,
+}) => {
+  const { pathname } = useRouter();
 
   return (
     <>
@@ -25,17 +29,16 @@ export const BasePage: React.FC<Props> = ({ title, children }) => {
           {pathname !== '/' && (
             <Link
               href="/"
-              className="absolute top-10 left-10 w-15 h-15 p-5 flex border-2 border-gray-500 rounded-full cursor-pointer hover:bg-violet-900 active:bg-violet-800 transition duration-300"
+              className="w-15 h-15 absolute top-10 left-10 flex cursor-pointer rounded-full border-2 border-gray-500 p-5 transition duration-300 hover:bg-violet-900 active:bg-violet-800"
             >
               <ArrowIcon />
             </Link>
           )}
-
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
             {title}
           </h1>
 
-          {children}
+          <div>{isLoading ? <p>Loading..</p> : children}</div>
         </div>
       </main>
     </>

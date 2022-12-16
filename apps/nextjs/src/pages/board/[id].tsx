@@ -1,18 +1,21 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { BoardCard, BasePage, ArrowIcon } from '@components';
+import { BoardCard, BasePage, Column, BaseButton } from '@components';
 import { trpc } from '@utils';
 
 const Board: NextPage = () => {
   const router = useRouter();
+
   const {
     data: board,
     isLoading,
     isError,
   } = trpc.board.byId.useQuery(Number(router.query.id));
+
   const mutation = trpc.board.delete.useMutation();
+
+  console.log(board);
 
   if (isError) {
     return <div>Error</div>;
@@ -23,24 +26,24 @@ const Board: NextPage = () => {
   }
 
   return (
-    <BasePage title={board.title}>
-      <div className="flex justify-center px-4 text-2xl ">
-        {board ? (
-          <div className="flex flex-col gap-4">
-            <button
-              className="absolute top-0 right-2 hover:scale-[110%]"
-              onClick={() => {
-                mutation.mutate(board.id);
-                router.push('/');
-              }}
-            >
-              x
-            </button>
-            <BoardCard board={board} />
+    <BasePage title={board.title} isLoading={isLoading}>
+      <div className="flex w-full justify-center px-4 text-2xl">
+        <div className="flex flex-col gap-4">
+          <BaseButton
+            className="absolute top-5 right-5 text-sm"
+            onClick={() => {
+              mutation.mutate(board.id);
+              router.push('/');
+            }}
+          >
+            Remove
+          </BaseButton>
+          <div className="flex h-[600px] w-[1000px] justify-between p-5">
+            {board.columns?.map((column) => (
+              <Column key={column.id} column={column} />
+            ))}
           </div>
-        ) : (
-          <p>Loading..</p>
-        )}
+        </div>
       </div>
     </BasePage>
   );

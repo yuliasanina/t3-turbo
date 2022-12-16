@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "main": "./index.ts",
   "license": "MIT",
-  "scripts": {
-    "test": "vitest --no-threads"
-  },
+  "scripts": {},
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
     "@types/react": "^18.0.25",

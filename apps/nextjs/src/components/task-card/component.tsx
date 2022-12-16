@@ -7,10 +7,10 @@ export const TaskCard: React.FC<{
 }> = ({ task }) => {
   const { title, description } = task;
   return (
-    <div className="px-10 border-2 border-gray-500 py-5 rounded-lg cursor-pointer">
+    <div className="w-full cursor-pointer rounded-lg border border-gray-500 px-[15px] py-[10px] hover:bg-violet-900 active:bg-violet-800">
       <h2 className="text-xl font-bold text-[hsl(280,100%,70%)]">{title}</h2>
 
-      {description && <p className="text-sm pt-2">{description}</p>}
+      {description && <p className="pt-2 text-sm">{description}</p>}
     </div>
   );
 };

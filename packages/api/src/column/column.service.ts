@@ -4,7 +4,9 @@ export class ColumnsService {
   constructor(private ctx: Context) {}
 
   public getBoardColumns(boardId: number) {
-    return this.ctx.prisma.column.findMany({ where: { boardId } });
+    return this.ctx.prisma.column.findMany({
+      where: { boardId },
+    });
   }
 
   public getColumnById(id: number) {
